@@ -10,17 +10,21 @@ class Bashrc:
     def __init__(self):
         """position $HOME/.bashrc and order for write in file"""
         self.posFile = os.environ["HOME"] + "/.bashrc"
-        self.order = {"PATH": "PATH=" + sys.argv[2] + ":$PATH \nexport PATH",
-                      "ALIAS": "alias " + sys.argv[2] + "='" + sys.argv[3] + "'"}
+        self.order = {"PATH": self.PATH,
+                      "ALIAS": self.ALIAS}
+
+    def PATH(self):
+        return "PATH=" + sys.argv[2] + ":$PATH \nexport PATH"
+
+    def ALIAS(self):
+        return "alias " + sys.argv[2] + "='" + sys.argv[3] + "'"
 
     def add(self):
         with open(self.posFile, "a") as file:
-            file = file.write("{0}\n".format(self.order[sys.argv[1]]))
+            file = file.write("{0}\n".format(self.order[sys.argv[1]]()))
 
     def exeCMD():
         try:
-            if not sys.argv[3]:
-                sys.argv[3] = " "
             x = Bashrc()
             x.add()
         except IndexError:
