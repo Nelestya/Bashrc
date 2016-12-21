@@ -34,4 +34,3 @@ class Bashrc:
             print ("argv 3 : it's the path for alias")
 if __name__ == "__main__":
     Bashrc.exeCMD()
-    
